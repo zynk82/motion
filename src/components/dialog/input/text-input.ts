@@ -1,7 +1,7 @@
 import {BaseComponent} from "../../component.js";
-import {Inputtable} from "../dialog.js";
+import {TextData} from "../dialog.js";
 
-export class TextSectionInput extends BaseComponent<HTMLElement> implements Inputtable {
+export class TextSectionInput extends BaseComponent<HTMLElement> implements TextData {
     constructor() {
         super(`
             <div>
@@ -19,10 +19,6 @@ export class TextSectionInput extends BaseComponent<HTMLElement> implements Inpu
 
     get title(): string {
         return this.element.querySelector<HTMLInputElement>('#title')!.value;
-    }
-
-    get url(): string {
-        return '';
     }
 
     get body(): string {

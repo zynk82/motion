@@ -8,7 +8,7 @@ export class VideoComponent extends BaseComponent<HTMLElement> {
                     <iframe class="video__iframe"/>
                     </iframe>
                 </div>
-                <h3 class="video__title"></h3>
+                <h3 class="page-item__title video__title"></h3>
             </section>
         `);
 
@@ -31,8 +31,3 @@ export class VideoComponent extends BaseComponent<HTMLElement> {
         return url;
     }
 }
-
-// <iframe width="1235" height="695" frameborder="0" allowfullscreen
-//     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//     src="https://www.youtube.com/embed/FQPlEnKav48" title="YouTube video player"
-// />

@@ -1,7 +1,7 @@
-import {Inputtable} from "../dialog.js";
-import {InputComponent} from "./input-component.js";
+import {BaseComponent} from "../../component.js";
+import {MediaData} from "../dialog.js";
 
-export class MediaSectionInput extends InputComponent<HTMLElement> implements Inputtable {
+export class MediaSectionInput extends BaseComponent<HTMLElement> implements MediaData {
     constructor() {
         super(`
             <div>
@@ -23,9 +23,5 @@ export class MediaSectionInput extends InputComponent<HTMLElement> implements In
 
     get url(): string {
         return this.element.querySelector<HTMLInputElement>('#url')!.value;
-    }
-
-    get body(): string {
-        return '';
     }
 }

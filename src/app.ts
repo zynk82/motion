@@ -1,13 +1,16 @@
 import {Composable, PageComponent, PageItemComponent} from "./components/page/page.js";
 import {ImageComponent} from "./components/page/item/image.js";
 import {Component} from "./components/component.js";
-import {InputDialog} from "./components/dialog/dialog.js";
+import {InputDialog, MediaData, TextData} from "./components/dialog/dialog.js";
 import {MediaSectionInput} from "./components/dialog/input/media-input.js";
 import {TextSectionInput} from "./components/dialog/input/text-input.js";
-import {InputComponent} from "./components/dialog/input/input-component.js";
 import {VideoComponent} from "./components/page/item/video.js";
 import {NoteComponent} from "./components/page/item/note.js";
 import {TodoComponent} from "./components/page/item/todo.js";
+
+type InputComponentConstructor<T = Component & (MediaData | TextData)> = {
+    new(): T
+};
 
 class App {
     private readonly page: Component & Composable;
@@ -16,89 +19,55 @@ class App {
         this.page = new PageComponent(PageItemComponent);
         this.page.attachTo(appRoot, 'afterbegin')
 
-        // this.page.addChild(
-        //     new VideoComponent(
-        //         'Video Title'
-        //         , 'url')
-        // );
-        //
-        // this.page.addChild(
-        //     new NoteComponent('Note Title'
-        //         , 'Note Body')
-        // );
-        //
-        // this.page.addChild(
-        //     new TodoComponent('Todo Title'
-        //         , 'Todo Item')
-        // );
+        this.bindElementToDialog<MediaSectionInput>(
+            '#new-image'
+            , MediaSectionInput
+            , (inputComponent: MediaSectionInput) => new ImageComponent(inputComponent.title, inputComponent.url)
+        );
 
-        document.querySelectorAll<HTMLButtonElement>('header button').forEach((btn) => {
-            btn.addEventListener('click', this.onMenuClick.bind(this));
-        });
-        // document.querySelector<HTMLButtonElement>('#new-image')!
-        //     .addEventListener('click', this.onMenuClick.bind(this));
+        this.bindElementToDialog<MediaSectionInput>(
+            '#new-video'
+            , MediaSectionInput
+            , (inputComponent: MediaSectionInput) => new VideoComponent(inputComponent.title, inputComponent.url)
+        );
+
+        this.bindElementToDialog<TextSectionInput>(
+            '#new-note'
+            , TextSectionInput
+            , (inputComponent: TextSectionInput) => new NoteComponent(inputComponent.title, inputComponent.body)
+        );
+
+        this.bindElementToDialog<TextSectionInput>(
+            '#new-todo'
+            , TextSectionInput
+            , (inputComponent: TextSectionInput) => new TodoComponent(inputComponent.title, inputComponent.body)
+        );
     }
 
-    private onMenuClick(e: Event): void {
-        const target = e.target as HTMLElement;
+    private bindElementToDialog<T extends Component & (MediaData | TextData)>(
+        selector: string
+        , InputSectionComponent: InputComponentConstructor<T>
+        , makeSection: (inputComponent: T) => Component
+    ) {
+        document.querySelector<HTMLButtonElement>(selector)!
+            .addEventListener('click', () => {
+                const input = new InputSectionComponent();
 
-        let inputComponent!: InputComponent<HTMLElement>;
+                const dialog = new InputDialog();
+                dialog
+                    .setParent(document.querySelector<HTMLBodyElement>('body')!)
+                    .addChild(input)
+                    .setOnCloseListener(() => {
+                        dialog.removeFrom();
+                    })
+                    .setOnSubmitListener(() => {
+                        this.page.addChild(makeSection(input));
 
-        switch (target.id) {
-            case 'new-image':
-                inputComponent = new MediaSectionInput();
-                break;
-            case 'new-video':
-                inputComponent = new MediaSectionInput();
-                break;
-            case 'new-note':
-                inputComponent = new TextSectionInput();
-                break;
-            case 'new-todo':
-                inputComponent = new TextSectionInput();
-                break;
-            default:
-                return;
-        }
-
-        const dialog = new InputDialog();
-        dialog
-            .setParent(document.querySelector<HTMLBodyElement>('body')!)
-            .addChild(inputComponent)
-            .setOnCloseListener(() => {
-                dialog.removeFrom();
-            })
-            .setOnSubmitListener(() => {
-                switch (target.id) {
-                    case 'new-image':
-                        this.page.addChild(
-                            new ImageComponent(inputComponent.title, inputComponent.url)
-                        );
-                        break;
-                    case 'new-video':
-                        this.page.addChild(
-                            new VideoComponent(inputComponent.title, inputComponent.url)
-                        );
-                        break;
-                    case 'new-note':
-                        this.page.addChild(
-                            new NoteComponent(inputComponent.title, inputComponent.body)
-                        );
-                        break;
-                    case 'new-todo':
-                        this.page.addChild(
-                            new TodoComponent(inputComponent.title, inputComponent.body)
-                        );
-                        break;
-                    default:
-                        return;
-                }
-
-                dialog.removeFrom();
-            })
-            .attachTo();
+                        dialog.removeFrom();
+                    })
+                    .attachTo();
+            });
     }
-
 }
 
 new App(

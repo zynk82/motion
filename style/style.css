@@ -43,6 +43,19 @@ body {
     margin: 0;
 }
 
+button {
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+
+input,
+textarea {
+    background: var(--text-edit-bg-color);
+    color: var(--smokywhite);
+    font-size: 1.5rem;
+}
+
 .app {
     width: 100%;
     max-width: 1000px;
@@ -68,7 +81,8 @@ body {
     justify-content: center;
 }
 
-.create-button {
+.create-button,
+.dialog__submit {
     margin: 0.1em 0.2em;
     text-align: center;
     user-select: none;
@@ -80,6 +94,11 @@ body {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     border-radius: 2px;
+}
+
+dialog__submit {
+    align-self: flex-end;
+    padding: 0.5em 1.5em;
 }
 
 .document {
@@ -110,9 +129,12 @@ body {
 }
 
 .page-item {
+    margin: 1.5em;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    box-shadow: 2px 2px 6px var(--shadow-color);
+    background: var(--component-bg-gradient);
 }
 
 .page-item__body {
@@ -120,23 +142,64 @@ body {
 }
 
 .page-item__controls {
-    height: fit-content;
+    padding-right: 0.5em;
 }
 
-.image__holder, .video {
+.video,
+.image {
+    display: flex;
+    width: 100%;
+    height: 15rem;
+}
+
+.video__player,
+.image__holder {
+    flex: 60% 1 1
+}
+
+.video__iframe,
+image__thumbnail {
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video__title,
+.image__title {
+    flex: 40% 1 1;
+}
+
+.image__holder {
     display: flex;
     flex-direction: row;
 }
 
+.note,
+.todo {
+    padding: 0.5rem;
+}
+
+.todo-label {
+    padding: 1rem;
+    color: var(--smokywhite);
+}
 
 .close {
-    align-items: center;
-    font-size: 2rem;
-    border: none;
-    background: none;
-    width: 2rem;
-    height: 2rem;
+    align-self: flex-end;
+    padding: 0.2rem;
     color: var(--accent-color);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.2rem;
+    transition: color 250ms ease;
+}
+
+.close:hover,
+.close:focus {
+    transform: scale(1.5);
+    color: var(--shadow-color);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 dialog {
@@ -170,16 +233,16 @@ dialog {
     align-self: end;
 }
 
-.dialog__submit {
-    color: var(--smokywhite);
-    border: none;
-    background: var(--accent-color);
-    width: 5rem;
-    height: 2rem;
-    margin-left: auto;
-    /*right: 0;*/
-}
-
 #dialog__body {
     height: 100%;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.page-item__title {
+    color: var(--text-accent-color);
 }
