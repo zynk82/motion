@@ -9,7 +9,7 @@ export class NoteComponent extends BaseComponent<HTMLElement> {
             </section>
         `);
 
-        this.element.querySelector<HTMLHeadElement>('.note__title')!.textContent = title;
+        this.element.querySelector<HTMLHeadingElement>('.note__title')!.textContent = title;
         this.element.querySelector<HTMLParagraphElement>('.note__body')!.textContent = body;
     }
 }

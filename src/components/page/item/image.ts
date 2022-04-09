@@ -12,11 +12,11 @@ export class ImageComponent extends BaseComponent<HTMLElement> {
 
         super(html);
 
-        const imageElement = this.element.querySelector('.image__thumbnail')! as HTMLImageElement;
+        const imageElement = this.element.querySelector<HTMLImageElement>('.image__thumbnail')!;
         imageElement.src = url;
         imageElement.alt = title;
 
-        const titleElement = this.element.querySelector('.image__title')! as HTMLParagraphElement;
+        const titleElement = this.element.querySelector<HTMLHeadingElement>('.image__title')!;
         titleElement.textContent = title;
     }
 }

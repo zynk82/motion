@@ -87,7 +87,7 @@
     /* Enable all strict type-checking options. */
     "noUnusedLocals": true,
     /* Enable error reporting when a local variables aren't read. */
-    "noUnusedParameters": true,
+    // "noUnusedParameters": true,
     /* Raise an error when a function parameter isn't read */
     "noImplicitReturns": true,
     /* Enable error reporting for codepaths that do not explicitly return in a function. */
