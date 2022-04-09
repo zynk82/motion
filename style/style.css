@@ -33,6 +33,7 @@ label {
 
 body {
     /*background: url('../assets/background.png') center/cover no-repeat;*/
+    background-color: var(--black);
     font-family: Roboto, Oxygen, sans-serif;
     display: flex;
     justify-content: center;
