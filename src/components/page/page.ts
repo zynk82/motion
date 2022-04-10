@@ -80,15 +80,12 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
                     this.dragTarget.addClass(classLifted);
                     this.dragTarget?.removeClass(classLower);
 
-                    this.hideItem(this.dragTarget);
-
                     break;
                 case "stop":
                     this.dragTarget?.removeClass(classLifted);
                     this.dropTarget?.removeClass(classDropArea);
 
                     this.changeItemIndex(e);
-                    this.showItem(this.dragTarget);
 
                     this.dragTarget?.addClass(classLower);
                     this.dragTarget = undefined;
@@ -110,14 +107,6 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
             }
         });
     };
-
-    private showItem(component?: PageItemComponent) {
-        // component?.removeClass('hide');
-    }
-
-    private hideItem(component?: PageItemComponent) {
-        // component?.addClass('hide');
-    }
 }
 
 export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer {
