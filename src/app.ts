@@ -19,6 +19,18 @@ class App {
         this.page = new PageComponent(PageItemComponent);
         this.page.attachTo(appRoot, 'afterbegin')
 
+        this.page.addChild(new NoteComponent('title1', 'body'));
+        this.page.addChild(new NoteComponent('title2', 'body'));
+        this.page.addChild(new NoteComponent('title3', 'body'));
+        this.page.addChild(new NoteComponent('title4', 'body'));
+        this.page.addChild(new NoteComponent('title5', 'body'));
+        this.page.addChild(new NoteComponent('title6', 'body'));
+        this.page.addChild(new NoteComponent('title7', 'body'));
+        this.page.addChild(new NoteComponent('title8', 'body'));
+        this.page.addChild(new NoteComponent('title9', 'body'));
+        this.page.addChild(new NoteComponent('title10', 'body'));
+        this.page.addChild(new NoteComponent('title11', 'body'));
+
         this.bindElementToDialog<MediaSectionInput>(
             '#new-image'
             , MediaSectionInput

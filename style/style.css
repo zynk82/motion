@@ -246,3 +246,46 @@ dialog {
 .page-item__title {
     color: var(--text-accent-color);
 }
+
+/* Drag and Drop*/
+.mute-childred * {
+    pointer-events: none;
+}
+
+.lifted {
+    animation: drag_start 250ms;
+    opacity: 0.2;
+}
+
+.lower {
+    animatin: drag_end 250ms;
+    opacity: 1;
+}
+
+.drop-area {
+    border: 0.2rem solid var(--accent-color);
+}
+
+@keyframes drag_start {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes drag_end {
+    0% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.hide {
+    display: none;
+}
